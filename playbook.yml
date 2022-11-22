@@ -1,9 +1,11 @@
 ---
-- name: Deploy to K8s Cluster 
+- name: code deployement
   hosts: localhost
   become: true
+  become_user: root
+  gather_facts: false
   tasks:
-    - name: Deploy Pod
+    - name: Deploy pod
       shell: |
-        kubectl apply -f deploy.yml
+         kubectl apply -f deploy.yml
      
