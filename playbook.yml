@@ -6,12 +6,8 @@ tasks:
   - name: Deploy Pod
     shell: |
       kubectl apply -f deploy.yml
-    tags:
-      - deploy
-  
+      
   - name: Deploy Service
     shell: | 
       kubectl apply -f service.yml
-    tags:
-      - service
      
