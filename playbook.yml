@@ -7,5 +7,6 @@
   tasks:
     - name: Deploy pod
       shell: |
+         aws eks update-kubeconfig --region eu-central-1 --name mycluster
          kubectl apply -f deploy.yml
      
