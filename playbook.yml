@@ -5,7 +5,7 @@
   tasks:
   # Create Kubernetes resources to run adjust task.
   - name: Create a Deployment
-    kubernetes.core.k8s:
+    k8s:
       state: present
       definition:
         apiVersion: apps/v1
@@ -32,7 +32,7 @@
                   - containerPort: 8080
 
   - name: Creating a NodePort Service for Web App
-    kubernetes.core.k8s:
+    k8s:
       state: present
       definition:
         apiVersion: v1
