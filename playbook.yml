@@ -1,5 +1,6 @@
 ---
-- hosts: localhost
+- name: Code deployment
+  hosts: localhost
   gather_facts: false
   tasks:
   # Create Kubernetes resources to run adjust task.
