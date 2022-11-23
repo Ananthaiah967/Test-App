@@ -3,7 +3,6 @@
   hosts: localhost
   gather_facts: false
   tasks:
-  # Create Kubernetes resources to run adjust task.
   - name: Create a Deployment
     k8s:
       state: present
@@ -16,7 +15,7 @@
           labels:
             app: web
         spec:
-          replicas: 2
+          replicas: 4
           selector:
             matchLabels:
               app: web
