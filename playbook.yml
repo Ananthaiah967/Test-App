@@ -1,12 +1,52 @@
 ---
-- name: code deployement
-  hosts: localhost
-  become: true
-  become_user: root
+- hosts: localhost
   gather_facts: false
   tasks:
-    - name: Deploy pod
-      shell: |
-         aws eks update-kubeconfig --region eu-central-1 --name mycluster
-         kubectl apply -f deploy.yml
-     
+  
+  # Create Kubernetes resources to run adjust task.
+   - name: Create a Deployment.
+     k8s:
+       state: present
+       definition:
+         apiVersion: apps/v1
+         kind: Deployment
+         metadata:
+           name: web-deploy
+           namespace: demo-app
+           labels:
+             app: web
+         spec:
+           replicas: 2
+           selector:
+             matchLabels:
+               app: web
+           template:
+             metadata:
+               labels:
+                 app: web
+             spec:
+               containers:
+                 - name: hello-pod
+                   image: 237040306463.dkr.ecr.eu-central-1.amazonaws.com/test:latest
+                   imagePullPolicy: Always
+                   ports:
+                   - containerPort: 8080
+
+   - name: Creating a NodePort Service for Web App
+     k8s:
+       state: present
+       definition:
+         apiVersion: v1
+         kind: Service
+         metadata:
+           name: nodeport
+           namespace: demo-app
+         spec:
+           selector:
+             app: web
+           type: NodePort
+           ports:
+             - protocol: TCP
+               port: 80
+               targetPort: 8080
+               nodePort: 31111
