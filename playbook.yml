@@ -3,7 +3,7 @@
   gather_facts: false
   tasks:
   # Create Kubernetes resources to run adjust task.
-  - name: Create a Deployment.
+  - name: Create a Deployment
     kubernetes.core.k8s:
       state: present
       definition:
