@@ -3,47 +3,47 @@
   gather_facts: false
   tasks:
   # Create Kubernetes resources to run adjust task.
-   - name: Create a Deployment.
-     kubernetes.core.k8s:
-       state: present
-       definition:
-         apiVersion: apps/v1
-         kind: Deployment
-         metadata:
-           name: web-deploy
-           labels:
-             app: web
-         spec:
-           replicas: 2
-           selector:
-             matchLabels:
-               app: web
-           template:
-             metadata:
-               labels:
-                 app: web
-             spec:
-               containers:
-                 - name: hello-pod
-                   image: 237040306463.dkr.ecr.eu-central-1.amazonaws.com/test:latest
-                   imagePullPolicy: Always
-                   ports:
-                   - containerPort: 8080
+  - name: Create a Deployment.
+    kubernetes.core.k8s:
+      state: present
+      definition:
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: web-deploy
+          labels:
+            app: web
+        spec:
+          replicas: 2
+          selector:
+            matchLabels:
+              app: web
+          template:
+            metadata:
+              labels:
+                app: web
+            spec:
+              containers:
+                - name: hello-pod
+                  image: 237040306463.dkr.ecr.eu-central-1.amazonaws.com/test:latest
+                  imagePullPolicy: Always
+                  ports:
+                  - containerPort: 8080
 
-   - name: Creating a NodePort Service for Web App
-     kubernetes.core.k8s:
-       state: present
-       definition:
-         apiVersion: v1
-         kind: Service
-         metadata:
-           name: nodeport
-         spec:
-           selector:
-             app: web
-           type: NodePort
-           ports:
-             - protocol: TCP
-               port: 80
-               targetPort: 8080
-               nodePort: 31111
+  - name: Creating a NodePort Service for Web App
+    kubernetes.core.k8s:
+      state: present
+      definition:
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: nodeport
+        spec:
+          selector:
+            app: web
+          type: NodePort
+          ports:
+            - protocol: TCP
+              port: 80
+              targetPort: 8080
+              nodePort: 31111
