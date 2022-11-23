@@ -2,17 +2,15 @@
 - hosts: localhost
   gather_facts: false
   tasks:
-  
   # Create Kubernetes resources to run adjust task.
    - name: Create a Deployment.
-     k8s:
+     kubernetes.core.k8s:
        state: present
        definition:
          apiVersion: apps/v1
          kind: Deployment
          metadata:
            name: web-deploy
-           namespace: demo-app
            labels:
              app: web
          spec:
@@ -33,14 +31,13 @@
                    - containerPort: 8080
 
    - name: Creating a NodePort Service for Web App
-     k8s:
+     kubernetes.core.k8s:
        state: present
        definition:
          apiVersion: v1
          kind: Service
          metadata:
            name: nodeport
-           namespace: demo-app
          spec:
            selector:
              app: web
