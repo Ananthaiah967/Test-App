@@ -12,6 +12,7 @@
         kind: Deployment
         metadata:
           name: web-deploy
+          namespace: default
           labels:
             app: web
         spec:
@@ -39,6 +40,7 @@
         kind: Service
         metadata:
           name: nodeport
+          namespace: default
         spec:
           selector:
             app: web
