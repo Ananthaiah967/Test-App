@@ -10,7 +10,7 @@ app.use(express.static('static'));
 app.use(morgan('combined'));
 
 var port = process.env.PORT || 8080;
-var message = process.env.MESSAGE || "Starting Kubernetes hh!";
+var message = process.env.MESSAGE || "This is my First Kubernetes Project!";
 
 app.get('/', function (req, res) {
     res.render('home', {
